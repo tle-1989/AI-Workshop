@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goblin Tools - Comprehensive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .summary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+        
+        .tool-title {
+            color: #5a67d8;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tool-description {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .examples {
+            margin-top: 20px;
+        }
+        
+        .example {
+            background: #f8f9ff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #5a67d8;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .input-section {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .output-section {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .input-label, .output-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .input-label {
+            color: #856404;
+        }
+        
+        .output-label {
+            color: #155724;
+        }
+        
+        .spicy-indicator {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .step-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .step-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .step-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .pros {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .cons {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .note {
+            background: #e7f3ff;
+            border: 2px dashed #4299e1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            color: #2b6cb0;
+        }
+        
+        @media (max-width: 768px) {
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧙‍♂️ Goblin Tools</h1>
+            <p>AI-powered tools designed to help neurodivergent individuals tackle overwhelming tasks</p>
+        </div>
+        
+        <div class="summary">
+            <h2>What is Goblin Tools?</h2>
+            <p><strong>Goblin Tools</strong> is a free collection of simple, single-task AI-powered tools primarily designed to help neurodivergent people (those with ADHD, autism, OCD, BPD, and others) with tasks they find overwhelming or difficult. Created and maintained by Bram De Buyser, these tools use AI technology (including OpenAI's models) to break down complex tasks, improve communication, and provide practical assistance in daily life.</p>
+            
+            <p>The platform is committed to remaining <strong>completely free</strong> on the web, with optional low-cost mobile apps available to help cover maintenance costs. Each tool focuses on a single function to avoid overwhelming users, making them particularly valuable for people who struggle with executive function challenges.</p>
+        </div>
+        
+        <div class="tool-grid">
+            <!-- Magic ToDo -->
+            <div class="tool-card">
+                <h3 class="tool-title">🪄 Magic ToDo</h3>
+                <div class="tool-description">
+                    Automatically breaks down overwhelming tasks into manageable, step-by-step instructions. Uses a "spiciness" level to determine how detailed the breakdown should be.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Cleaning Bedroom</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Clean my bedroom" <span class="spicy-indicator">🌶🌶🌶</span>
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Output:</div>
+                            <ul class="step-list">
+                                <li>Pick up all clothes from floor and chair</li>
+                                <li>Sort clothes into dirty and clean piles</li>
+                                <li>Put clean clothes away in dresser/closet</li>
+                                <li>Put dirty clothes in hamper</li>
+                                <li>Clear desk surface of papers and items</li>
+                                <li>Make bed with fresh sheets</li>
+                                <li>Vacuum or sweep floor</li>
+                                <li>Empty trash bin</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Prepare for Job Interview</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Prepare for job interview" <span class="spicy-indicator">🌶🌶</span>
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Output:</div>
+                            <ul class="step-list">
+                                <li>Research the company and position</li>
+                                <li>Review job description and requirements</li>
+                                <li>Prepare answers to common interview questions</li>
+                                <li>Choose and lay out professional outfit</li>
+                                <li>Print multiple copies of resume</li>
+                                <li>Plan route and transportation to interview</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formalizer -->
+            <div class="tool-card">
+                <h3 class="tool-title">📝 Formalizer</h3>
+                <div class="tool-description">
+                    Acts as a style translator that rephrases text to match different tones and contexts. Can make text more formal, casual, professional, sarcastic, or many other styles.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Professional Email</div>
+                        <div class="input-section">
+                            <div class="input-label">Input (Informal):</div>
+                            "Hey, I'm super frustrated that this project is way behind and nobody told me about the changes. This is really messing up my schedule!"
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Output (Professional):</div>
+                            "I wanted to touch base regarding the project timeline. I recently became aware of some changes that have impacted the schedule, and I'd appreciate being kept in the loop for future updates to better coordinate my workload."
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Making Text More Concise</div>
+                        <div class="input-section">
+                            <div class="input-label">Input (Wordy):</div>
+                            "I was wondering if it might be possible for you to perhaps consider maybe helping me out with this task if you have some free time available."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Output (Concise):</div>
+                            "Could you help me with this task when you're available?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Judge -->
+            <div class="tool-card">
+                <h3 class="tool-title">⚖️ Judge</h3>
+                <div class="tool-description">
+                    Analyzes the emotional content and tone of text to help interpret how messages might come across to others. Particularly helpful for those who struggle with reading social cues.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Ambiguous Message</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Thanks for getting back to me so quickly on this."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Analysis:</div>
+                            <strong>Tone:</strong> Neutral to positive, appreciative<br>
+                            <strong>Emotion:</strong> Gratitude, possibly mild relief<br>
+                            <strong>Intent:</strong> Expressing genuine appreciation for prompt response<br>
+                            <strong>How it comes across:</strong> Professional and courteous
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Potentially Problematic Text</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Fine. I guess we can do it your way since nobody wants to listen to my ideas anyway."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Analysis:</div>
+                            <strong>Tone:</strong> Passive-aggressive, resigned<br>
+                            <strong>Emotion:</strong> Frustration, feeling dismissed<br>
+                            <strong>Intent:</strong> Expressing disagreement while appearing to comply<br>
+                            <strong>How it comes across:</strong> Potentially confrontational and unprofessional
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professor -->
+            <div class="tool-card">
+                <h3 class="tool-title">🎓 Professor</h3>
+                <div class="tool-description">
+                    Breaks down complex concepts, topics, or subjects into understandable explanations with examples. Acts like a personal tutor to help clarify difficult material.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Scientific Concept</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Explain photosynthesis"
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Output:</div>
+                            <strong>Simple Explanation:</strong> Photosynthesis is how plants make their own food using sunlight.<br><br>
+                            <strong>The Process:</strong> Plants take in carbon dioxide from air and water from soil, then use energy from sunlight to combine them into sugar (glucose) and release oxygen.<br><br>
+                            <strong>Example:</strong> Think of it like a kitchen where sunlight is the power, CO₂ and water are ingredients, and glucose and oxygen are the final products.
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Historical Event</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Explain the causes of World War I"
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Output:</div>
+                            <strong>Main Causes:</strong><br>
+                            • <strong>Alliances:</strong> European countries formed opposing teams<br>
+                            • <strong>Imperialism:</strong> Countries competed for colonies<br>
+                            • <strong>Militarism:</strong> Arms race and military buildup<br>
+                            • <strong>Nationalism:</strong> Ethnic groups wanted independence<br><br>
+                            <strong>Trigger:</strong> Assassination of Archduke Franz Ferdinand activated the alliance system like dominoes falling.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Consultant -->
+            <div class="tool-card">
+                <h3 class="tool-title">💼 Consultant</h3>
+                <div class="tool-description">
+                    Helps with decision-making by listing pros and cons for any situation and providing informed advice based on the information you provide.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Career Decision</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Should I take a remote job that pays 20% more but I'd lose my current great team and office culture?"
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Analysis:</div>
+                            <div class="pros-cons">
+                                <div class="pros">
+                                    <strong>Pros:</strong><br>
+                                    • 20% salary increase<br>
+                                    • No commute costs/time<br>
+                                    • Flexible work environment<br>
+                                    • Better work-life balance potential
+                                </div>
+                                <div class="cons">
+                                    <strong>Cons:</strong><br>
+                                    • Loss of current team relationships<br>
+                                    • Missing office culture<br>
+                                    • Potential isolation<br>
+                                    • Unknown new company culture
+                                </div>
+                            </div>
+                            <strong>Recommendation:</strong> Consider the long-term value of your current relationships vs. financial gain. If team culture is crucial to your job satisfaction, the 20% may not offset the loss.
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Personal Decision</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Should I adopt a dog when I work 9-hour days and live in an apartment?"
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Analysis:</div>
+                            <div class="pros-cons">
+                                <div class="pros">
+                                    <strong>Pros:</strong><br>
+                                    • Companionship and emotional support<br>
+                                    • Structured routine<br>
+                                    • Increased physical activity<br>
+                                    • Sense of purpose
+                                </div>
+                                <div class="cons">
+                                    <strong>Cons:</strong><br>
+                                    • 9 hours alone is too long for most dogs<br>
+                                    • Limited apartment space<br>
+                                    • High daily care commitment<br>
+                                    • Potential pet care costs
+                                </div>
+                            </div>
+                            <strong>Recommendation:</strong> Consider waiting until you can arrange dog walking/daycare, or consider a pet that requires less daily attention.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estimator -->
+            <div class="tool-card">
+                <h3 class="tool-title">⏱️ Estimator</h3>
+                <div class="tool-description">
+                    Provides time estimates for activities and tasks. Uses "spiciness" levels to factor in concentration difficulties or physical challenges that might extend completion time.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Household Task</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Deep clean kitchen including scrubbing stove, organizing pantry, and mopping floor" <span class="spicy-indicator">🌶🌶</span>
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Estimate:</div>
+                            <strong>Time Range:</strong> 2.5 - 4 hours<br>
+                            <strong>Factors considered:</strong> Multiple detailed tasks, potential for getting distracted during organizing, physical effort required for scrubbing<br>
+                            <strong>Recommendation:</strong> Break into smaller sessions or plan for a full afternoon
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Work Project</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Write a 10-page research report with citations" <span class="spicy-indicator">🌶🌶🌶</span>
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Estimate:</div>
+                            <strong>Time Range:</strong> 12 - 20 hours<br>
+                            <strong>Breakdown:</strong><br>
+                            • Research: 4-6 hours<br>
+                            • Outline: 1-2 hours<br>
+                            • Writing: 5-8 hours<br>
+                            • Editing/Citations: 2-4 hours<br>
+                            <strong>Note:</strong> High spiciness accounts for potential writer's block and perfectionism
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Compiler -->
+            <div class="tool-card">
+                <h3 class="tool-title">🔧 Compiler</h3>
+                <div class="tool-description">
+                    Takes unorganized thoughts, brain dumps, or rambling text and distills them into a clear list of actionable items. Can send results directly to Magic ToDo.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Brain Dump</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "I need to get ready for my sister's wedding next month and I'm so overwhelmed. I need to buy a gift, figure out what to wear, maybe get my hair done, book travel, confirm the hotel, and oh god I forgot I need to RSVP and I think there's a bridal shower too that I might need to bring something to and I should probably call mom to coordinate..."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Organized Tasks:</div>
+                            <ul class="step-list">
+                                <li>RSVP to wedding (urgent)</li>
+                                <li>Confirm bridal shower details with bride/family</li>
+                                <li>Book travel arrangements</li>
+                                <li>Confirm hotel reservation</li>
+                                <li>Shop for wedding gift</li>
+                                <li>Shop for bridal shower gift</li>
+                                <li>Choose and purchase wedding outfit</li>
+                                <li>Schedule hair appointment</li>
+                                <li>Call mom to coordinate plans</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Work Thoughts</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Meeting went well but I need to follow up on several things. John mentioned the budget issue with the Q3 projections and Sarah said we need to update the client presentation. Also need to review the contract terms Mike sent over and schedule that team meeting we talked about. Oh and I should probably update my project timeline since things have shifted."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Action Items:</div>
+                            <ul class="step-list">
+                                <li>Follow up with John about Q3 budget projections</li>
+                                <li>Update client presentation per Sarah's feedback</li>
+                                <li>Review contract terms from Mike</li>
+                                <li>Schedule team meeting</li>
+                                <li>Update project timeline to reflect recent changes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chef -->
+            <div class="tool-card">
+                <h3 class="tool-title">👨‍🍳 Chef</h3>
+                <div class="tool-description">
+                    Suggests recipes based on ingredients you have available, taking into account your cooking equipment, skill level, and dietary preferences.
+                </div>
+                
+                <div class="examples">
+                    <div class="example">
+                        <div class="example-title">Example 1: Limited Ingredients</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "I have chicken breast, rice, frozen peas, onion, garlic, soy sauce, and eggs. I have a stovetop and basic pans. I'm a beginner cook."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Recipe Suggestion:</div>
+                            <strong>Simple Chicken Fried Rice</strong><br><br>
+                            <strong>Instructions:</strong><br>
+                            1. Cook rice according to package directions<br>
+                            2. Cut chicken into small cubes, season with salt<br>
+                            3. Cook chicken in pan until done, set aside<br>
+                            4. Scramble eggs, set aside<br>
+                            5. Sauté diced onion and garlic<br>
+                            6. Add cooked rice, peas, chicken, and eggs<br>
+                            7. Stir in soy sauce and mix everything together<br><br>
+                            <strong>Cook time:</strong> ~25 minutes<br>
+                            <strong>Serves:</strong> 2-3 people
+                        </div>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">Example 2: Vegetarian Options</div>
+                        <div class="input-section">
+                            <div class="input-label">Input:</div>
+                            "Pasta, canned tomatoes, mozzarella, basil, olive oil, garlic. I'm vegetarian and have an oven. Intermediate cooking skills."
+                        </div>
+                        <div class="output-section">
+                            <div class="output-label">Recipe Suggestion:</div>
+                            <strong>Baked Caprese Pasta</strong><br><br>
+                            <strong>Instructions:</strong><br>
+                            1. Cook pasta until slightly underdone<br>
+                            2. Make sauce: sauté garlic, add canned tomatoes, simmer<br>
+                            3. Mix pasta with sauce in baking dish<br>
+                            4. Top with torn mozzarella and fresh basil<br>
+                            5. Drizzle with olive oil<br>
+                            6. Bake at 375°F for 20-25 minutes until bubbly<br><br>
+                            <strong>Cook time:</strong> ~35 minutes<br>
+                            <strong>Serves:</strong> 4 people<br>
+                            <strong>Tip:</strong> Reserve pasta water to thin sauce if needed
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h3>💡 Key Benefits</h3>
+            <p>Goblin Tools excels at breaking down overwhelming tasks into manageable steps, improving communication clarity, and providing practical support for daily challenges. The tools are designed with neurodivergent needs in mind but are helpful for anyone looking to improve their productivity and organization.</p>
+        </div>
+    </div>
+</body>
+</html>
