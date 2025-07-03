@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools for Community College Faculty</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #00703C 0%, #4B5F3A 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00703C, #8B4513);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .tool-subtitle {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .use-cases {
+            margin-bottom: 20px;
+        }
+
+        .use-case {
+            background: #f7fafc;
+            border-left: 4px solid #00703C;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .use-case:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .use-case h4 {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .use-case p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00703C, #4B5F3A);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 112, 60, 0.4);
+        }
+
+        .btn-secondary {
+            background: #A9A9A9;
+            color: white;
+            border: 2px solid #808080;
+        }
+
+        .btn-secondary:hover {
+            background: #808080;
+            border-color: #696969;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideInUp 0.4s ease;
+        }
+
+        .modal h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #a0aec0;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #2d3748;
+        }
+
+        .scenario {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00703C;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #00703C, #4B5F3A);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 112, 60, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 112, 60, 0.6);
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .comparison-table h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2d3748;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+        }
+
+        .feature-yes {
+            color: #38a169;
+            font-weight: 600;
+        }
+
+        .feature-no {
+            color: #e53e3e;
+            font-weight: 600;
+        }
+
+        .feature-partial {
+            color: #d69e2e;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-card {
+                padding: 20px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+
+        /* Tool-specific colors */
+        .goblin-tools .tool-icon { background: linear-gradient(135deg, #00703C, #4B5F3A); }
+        .napkin-ai .tool-icon { background: linear-gradient(135deg, #8B4513, #A9A9A9); }
+        .gamma .tool-icon { background: linear-gradient(135deg, #00703C, #8B4513); }
+        .mapify .tool-icon { background: linear-gradient(135deg, #4B5F3A, #A9A9A9); }
+        .recall .tool-icon { background: linear-gradient(135deg, #8B4513, #00703C); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 AI Tools for Faculty</h1>
+            <p>Discover powerful AI tools to enhance teaching, streamline workflows, and improve student engagement</p>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Goblin Tools -->
+            <div class="tool-card goblin-tools">
+                <div class="tool-header">
+                    <div class="tool-icon">🧙‍♂️</div>
+                    <div>
+                        <h2 class="tool-title">Goblin Tools</h2>
+                        <p class="tool-subtitle">AI-powered productivity tools for neurodivergent-friendly task management</p>
+                    </div>
+                </div>
+                
+                <div class="use-cases">
+                    <div class="use-case" onclick="showModal('goblin-modal1')">
+                        <h4>📝 Breaking Down Complex Assignments</h4>
+                        <p>Help students with ADHD or learning differences by auto-generating step-by-step breakdowns of projects</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('goblin-modal2')">
+                        <h4>📧 Professional Communication</h4>
+                        <p>Use the Formalizer to help students write appropriate emails to professors and administrators</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('goblin-modal3')">
+                        <h4>🍳 Life Skills Integration</h4>
+                        <p>Incorporate the Chef tool into culinary or nutrition courses for practical meal planning</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://goblin.tools" class="btn btn-primary" target="_blank">
+                        🚀 Try Free
+                    </a>
+                </div>
+            </div>
+
+            <!-- Napkin AI -->
+            <div class="tool-card napkin-ai">
+                <div class="tool-header">
+                    <div class="tool-icon">📊</div>
+                    <div>
+                        <h2 class="tool-title">Napkin AI</h2>
+                        <p class="tool-subtitle">Transform text into stunning visual diagrams and infographics instantly</p>
+                    </div>
+                </div>
+                
+                <div class="use-cases">
+                    <div class="use-case" onclick="showModal('napkin-modal1')">
+                        <h4>📈 Lecture Visualization</h4>
+                        <p>Convert complex concepts into clear visual diagrams for better student comprehension</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('napkin-modal2')">
+                        <h4>📋 Assessment Creation</h4>
+                        <p>Generate visual study guides and flowcharts to help students prepare for exams</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('napkin-modal3')">
+                        <h4>🎯 Process Documentation</h4>
+                        <p>Create visual workflows for lab procedures, research methods, or course policies</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://napkin.ai" class="btn btn-primary" target="_blank">
+                        🚀 Try Free
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gamma -->
+            <div class="tool-card gamma">
+                <div class="tool-header">
+                    <div class="tool-icon">🎨</div>
+                    <div>
+                        <h2 class="tool-title">Gamma</h2>
+                        <p class="tool-subtitle">AI-powered presentation maker that creates beautiful slides in minutes</p>
+                    </div>
+                </div>
+                
+                <div class="use-cases">
+                    <div class="use-case" onclick="showModal('gamma-modal1')">
+                        <h4>🎓 Course Presentations</h4>
+                        <p>Generate professional lecture slides from course outlines or text notes instantly</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('gamma-modal2')">
+                        <h4>👥 Student Project Templates</h4>
+                        <p>Create presentation templates for student assignments with consistent branding</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('gamma-modal3')">
+                        <h4>📊 Administrative Reports</h4>
+                        <p>Build compelling presentations for department meetings, accreditation, or grant proposals</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://gamma.app" class="btn btn-primary" target="_blank">
+                        🚀 Try Free
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mapify -->
+            <div class="tool-card mapify">
+                <div class="tool-header">
+                    <div class="tool-icon">🗺️</div>
+                    <div>
+                        <h2 class="tool-title">Mapify</h2>
+                        <p class="tool-subtitle">Convert any content into structured mind maps using AI</p>
+                    </div>
+                </div>
+                
+                <div class="use-cases">
+                    <div class="use-case" onclick="showModal('mapify-modal1')">
+                        <h4>📚 Curriculum Mapping</h4>
+                        <p>Transform syllabi and course materials into visual learning maps for students</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('mapify-modal2')">
+                        <h4>🎥 Video Content Summary</h4>
+                        <p>Convert educational YouTube videos or recorded lectures into digestible mind maps</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('mapify-modal3')">
+                        <h4>📖 Research Organization</h4>
+                        <p>Help students organize research papers and sources into coherent visual structures</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://mapify.so" class="btn btn-primary" target="_blank">
+                        🚀 Try Free
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recall -->
+            <div class="tool-card recall">
+                <div class="tool-header">
+                    <div class="tool-icon">🧠</div>
+                    <div>
+                        <h2 class="tool-title">Recall</h2>
+                        <p class="tool-subtitle">AI-powered knowledge management and spaced repetition learning</p>
+                    </div>
+                </div>
+                
+                <div class="use-cases">
+                    <div class="use-case" onclick="showModal('recall-modal1')">
+                        <h4>📚 Professional Development</h4>
+                        <p>Organize educational research, articles, and conference materials for easy retrieval</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('recall-modal2')">
+                        <h4>🎯 Student Success Tools</h4>
+                        <p>Teach students effective study techniques using spaced repetition and active recall</p>
+                    </div>
+                    
+                    <div class="use-case" onclick="showModal('recall-modal3')">
+                        <h4>🔗 Course Content Curation</h4>
+                        <p>Build interconnected knowledge bases that link related course topics and materials</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://getrecall.ai" class="btn btn-primary" target="_blank">
+                        🚀 Try Free
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-table">
+            <h2>🆚 Quick Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Best For</th>
+                        <th>Free Tier</th>
+                        <th>Learning Curve</th>
+                        <th>Student Accessibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Goblin Tools</strong></td>
+                        <td>Task management, inclusive learning</td>
+                        <td class="feature-yes">✅ Fully free</td>
+                        <td class="feature-yes">Very easy</td>
+                        <td class="feature-yes">Excellent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Napkin AI</strong></td>
+                        <td>Visual content creation</td>
+                        <td class="feature-partial">⚠️ Limited credits</td>
+                        <td class="feature-yes">Easy</td>
+                        <td class="feature-yes">Good</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gamma</strong></td>
+                        <td>Presentations, websites</td>
+                        <td class="feature-partial">⚠️ 400 credits</td>
+                        <td class="feature-yes">Easy</td>
+                        <td class="feature-yes">Good</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mapify</strong></td>
+                        <td>Mind mapping, summarization</td>
+                        <td class="feature-partial">⚠️ Limited maps</td>
+                        <td class="feature-yes">Easy</td>
+                        <td class="feature-yes">Good</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recall</strong></td>
+                        <td>Knowledge management</td>
+                        <td class="feature-yes">✅ Core features free</td>
+                        <td class="feature-partial">Moderate</td>
+                        <td class="feature-partial">Moderate</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="floating-action" onclick="showModal('getting-started')" title="Getting Started Guide">
+        💡
+    </button>
+
+    <!-- Modals -->
+    <!-- Goblin Tools Modals -->
+    <div id="goblin-modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('goblin-modal1')">&times;</span>
+            <h3>📝 Breaking Down Complex Assignments with Goblin Tools</h3>
+            <div class="scenario">
+                <h4>Scenario: Research Paper Assignment</h4>
+                <p><strong>Challenge:</strong> Many students feel overwhelmed by multi-week research projects.</p>
+                <p><strong>Solution:</strong> Use Goblin Tools' Magic ToDo to break down "Write 10-page research paper" into manageable steps.</p>
+                <p><strong>Example Output:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>Choose and narrow topic (2 days)</li>
+                    <li>Find 5 scholarly sources (3 days)</li>
+                    <li>Create outline (1 day)</li>
+                    <li>Write introduction (2 days)</li>
+                    <li>Draft body paragraphs (1 week)</li>
+                    <li>Write conclusion (1 day)</li>
+                    <li>Revise and edit (3 days)</li>
+                </ul>
+                <p><strong>Faculty Tip:</strong> Demonstrate this live in class, then ask students to use it for their own projects.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="goblin-modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('goblin-modal2')">&times;</span>
+            <h3>📧 Professional Communication Training</h3>
+            <div class="scenario">
+                <h4>Scenario: Email Etiquette Workshop</h4>
+                <p><strong>Student Input:</strong> "hey prof, missed class yesterday what did i miss???"</p>
+                <p><strong>Formalizer Output:</strong> "Dear Professor [Name], I was unable to attend class yesterday due to [reason]. Could you please let me know what material was covered and if there are any assignments I need to complete? Thank you for your time."</p>
+                <p><strong>Activity Idea:</strong> Have students practice writing informal messages, then use Formalizer to see professional versions.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="goblin-modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('goblin-modal3')">&times;</span>
+            <h3>🍳 Life Skills Integration</h3>
+            <div class="scenario">
+                <h4>Scenario: Nutrition & Culinary Arts</h4>
+                <p><strong>Exercise:</strong> Students input available ingredients from their dorm/apartment</p>
+                <p><strong>Example Input:</strong> "chicken breast, rice, broccoli, cheese, olive oil"</p>
+                <p><strong>Chef Output:</strong> Recipe suggestions for healthy, budget-friendly meals</p>
+                <p><strong>Learning Extension:</strong> Discuss nutrition, food safety, and budget management</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="goblin-guide" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('goblin-guide')">&times;</span>
+            <h3>📚 Goblin Tools Faculty Implementation Guide</h3>
+            <div class="scenario">
+                <h4>🎯 Best Practices for Faculty</h4>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>Start Small:</strong> Introduce one tool (Magic ToDo) in a single assignment</li>
+                    <li><strong>Model Usage:</strong> Demonstrate breaking down your own faculty tasks</li>
+                    <li><strong>Inclusive Design:</strong> Emphasize that these tools help ALL students, not just those with learning differences</li>
+                    <li><strong>Student Choice:</strong> Make tool usage optional but encouraged</li>
+                </ul>
+                
+                <h4>🔄 Integration Ideas by Subject</h4>
+                <p><strong>English/Writing:</strong> Essay planning, peer review structure</p>
+                <p><strong>Science:</strong> Lab procedure breakdown, research project planning</p>
+                <p><strong>Business:</strong> Project management, professional communication</p>
+                <p><strong>Health Sciences:</strong> Care plan development, study schedules</p>
+                
+                <h4>📊 Assessment Integration</h4>
+                <p>Consider giving points for project planning, not just final products. This validates the planning process and helps students develop executive function skills.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Napkin AI Modals -->
+    <div id="napkin-modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('napkin-modal1')">&times;</span>
+            <h3>📈 Lecture Visualization with Napkin AI</h3>
+            <div class="scenario">
+                <h4>Scenario: Biology - Cell Division Process</h4>
+                <p><strong>Text Input:</strong> "Mitosis consists of prophase where chromosomes condense, metaphase where chromosomes align at the center, anaphase where sister chromatids separate, and telophase where nuclear envelopes reform."</p>
+                <p><strong>Visual Output:</strong> Automatic flowchart showing the four phases with clear arrows and visual elements</p>
+                <p><strong>Faculty Benefit:</strong> Create visual aids in seconds instead of spending hours in design software</p>
+                <p><strong>Student Engagement:</strong> Students retain visual information 65% better than text alone</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="napkin-modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('napkin-modal2')">&times;</span>
+            <h3>📋 Visual Study Guide Creation</h3>
+            <div class="scenario">
+                <h4>Scenario: Psychology - Learning Theories</h4>
+                <p><strong>Process:</strong></p>
+                <ol style="margin: 10px 0; padding-left: 20px;">
+                    <li>Copy course content into Napkin AI</li>
+                    <li>Generate comparison charts, mind maps, or flowcharts</li>
+                    <li>Export as PNG/PDF for student distribution</li>
+                    <li>Students can create their own study visuals using the same process</li>
+                </ol>
+                <p><strong>Time Savings:</strong> 30 minutes of reading becomes a 2-minute visual summary</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="napkin-modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('napkin-modal3')">&times;</span>
+            <h3>🎯 Process Documentation</h3>
+            <div class="scenario">
+                <h4>Scenario: Chemistry Lab Safety Procedures</h4>
+                <p><strong>Challenge:</strong> Students often skip reading lengthy safety protocols</p>
+                <p><strong>Solution:</strong> Convert safety text into visual flowcharts and infographics</p>
+                <p><strong>Example:</strong> "Emergency spill procedure" becomes a clear visual decision tree</p>
+                <p><strong>Result:</strong> Improved compliance and better retention of critical safety information</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="napkin-guide" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('napkin-guide'
